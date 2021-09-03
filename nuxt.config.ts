@@ -1,3 +1,5 @@
+import apiClient from "./plugins/notion-api"
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -42,5 +44,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  generate: {
+    async routes() {
+      const titles = await apiClient.getTitles()
+      return titles.map(title => `/blog/${title.title[0].plain_text}`)
+    }
   }
 }

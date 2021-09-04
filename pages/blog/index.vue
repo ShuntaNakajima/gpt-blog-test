@@ -1,6 +1,6 @@
 <template>
-  <div class="bb">
-      {{title}}
+  <div class="Content">
+      <Header></Header>
   </div>
 </template>
 

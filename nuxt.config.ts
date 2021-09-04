@@ -24,6 +24,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/css/_config.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -41,10 +42,29 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/style-resources',
+    '@nuxtjs/google-fonts'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  styleResources: {
+    scss: [
+     '@/assets/css/_config.scss',
+    ],
+  },
+
+  googleFonts: {
+    // families: {
+    //   'Noto+Sans': {
+    //     wght: [500, 700]
+    //   },
+    //   'Noto+Sans+JP': {
+    //     wght: [500,700]
+    //   }
+    // }
   },
 
   generate: {

@@ -1,5 +1,5 @@
 import { Client } from "@notionhq/client"
-import { PageInterface } from "~/util/Interface/Page"
+import { Page } from "@notionhq/client/build/src/api-types"
 
 class NotionAPIClient{
 
@@ -11,15 +11,11 @@ class NotionAPIClient{
         })
     }
 
-    async getTitles() {
-        return (await this.getPages()).map(page => page.Title)
-    }
-
-    async getPages(): Promise<PageInterface[]> {
+    async getPages(): Promise<Page[]> {
         const page = await this.client.databases.query({
             database_id: process.env.NOTION_DB || ""
         })
-        return page.results.map(page => page.properties as PageInterface)
+        return page.results
     }
 }
 

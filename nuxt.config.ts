@@ -1,4 +1,5 @@
 import apiClient from "./plugins/notion-api"
+import { convertPageListItem, convertStringFormula, PageListItem } from "./util/Interface/Page"
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -48,8 +49,9 @@ export default {
 
   generate: {
     async routes() {
-      const titles = await apiClient.getTitles()
-      return titles.map(title => `/blog/${title.title[0].plain_text}`)
+      const pages = await apiClient.getPages()
+      const pageListItems = pages.map(page => convertPageListItem(page))
+      return pageListItems.map(item => `/blog/${convertStringFormula(item.page_id).string}`)
     }
   }
 }

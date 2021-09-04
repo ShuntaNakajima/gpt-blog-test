@@ -15,7 +15,7 @@ import apiClient from '~/plugins/notion-api'
       return { title }
     },
 })
-export default class BlogContent extends Vue {
+export default class BlogList extends Vue {
     title: string = ""
 }
 </script>

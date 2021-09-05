@@ -1,10 +1,21 @@
 <template>
   <component class="BlockContent" :is="tag" v-if="richTexts" :id="idForH2">
     <span v-for="(text, index) in richTexts.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
+    <br v-if="richTexts.text.length === 0">
   </component>
   <component class="BlockContent" :is="tag" v-else-if="image">
     <img :src="image.file.url" :alt="imageCaption" class="ImageContent">
   </component>
+  <component class="BlockContent" :is="tag" v-else-if="embet">
+    {{embet}}
+  </component>
+  <component class="BlockContent" :is="tag" v-else-if="bookmark">
+    <BookMarkContent :link="bookmark" />
+  </component>
+  <!-- Add more feature here -->
+  <!-- <component class="BlockContent" :is="tag" v-else>
+    {{block}}
+  </component> -->
 </template>
 
 <script lang="ts">
@@ -19,7 +30,7 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
-import { convertImageObject, convertRichTextObject, getIdForH2, getRichTextText } from "~/util/Interface/Page";
+import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText } from "~/util/Interface/Page";
 
 @Component
 export default class BlockContent extends Vue {
@@ -57,6 +68,14 @@ export default class BlockContent extends Vue {
 
   get image(){
     return convertImageObject(this.block)
+  }
+
+  get embet(){
+    return convertEmbetObject(this.block)
+  }
+
+  get bookmark(){
+    return convertBookMarkObject(this.block)
   }
 
   get imageCaption(){

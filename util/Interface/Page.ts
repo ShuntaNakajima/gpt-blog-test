@@ -56,6 +56,24 @@ export function getIdForH2(block:Block){
     }
 }
 
+export function convertEmbetObject(block:Block){
+    switch (block.type){
+        case "embed":
+            return block.embed
+        default:
+            return null
+    }
+}
+
+export function convertBookMarkObject(block:Block){
+    switch (block.type){
+        case "bookmark":
+            return block.bookmark.url as string
+        default:
+            return null
+    }
+}
+
 export function getRichTextText(richText:RichText){
     if (richText.type === "text"){
         return richText

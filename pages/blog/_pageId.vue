@@ -29,6 +29,15 @@ import { convertStringFormula, PageListItem } from '~/util/Interface/Page'
       const [pageItem,page] = await apiClient.getPage(page_id)
       return { page_id, pageItem, page }
     },
+    mounted(){
+      // const plugin = document.createElement("script");
+      // plugin.setAttribute(
+      //   "src",
+      //   "'https://platform.twitter.com/widgets.js'"
+      // );
+      // plugin.async = true;
+      // document.head.appendChild(plugin);
+    }
 })
 export default class BlogContent extends Vue {
     page_id: string = ""

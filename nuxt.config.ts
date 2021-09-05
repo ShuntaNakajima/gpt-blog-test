@@ -43,7 +43,9 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/proxy',
+    "@nuxtjs/axios",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -64,6 +66,11 @@ export default {
       'Noto+Sans+JP': {
         wght: [400, 500,700]
       }
+    }
+  },
+  proxy: {
+    '/.netlify/functions': {
+      target: 'http://localhost:9000'
     }
   },
 

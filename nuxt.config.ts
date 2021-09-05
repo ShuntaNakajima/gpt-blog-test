@@ -66,9 +66,7 @@ export default {
       'Noto+Sans+JP': {
         wght: [400, 500,700]
       }
-    },
-    download: true,
-    overwriting: false
+    }
   },
   proxy: {
     '/.netlify/functions': {

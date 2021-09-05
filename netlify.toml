@@ -2,4 +2,4 @@
   Command = "yarn generate"
   publish = "dist/"
 [functions]
-  directory = "functions/dist"
+  directory = "functions/api"

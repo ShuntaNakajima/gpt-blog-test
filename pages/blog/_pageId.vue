@@ -9,7 +9,7 @@
             <BlockContent v-for="block in page" :key="block.id" :block="block" />
           </div>
           <div class="Index">
-            目次
+            <BlockContentIndex :indexItems="indexItems" :nowId="nowId" />
           </div>
         </div>
       </div>
@@ -33,6 +33,7 @@ export default class BlogContent extends Vue {
     page_id: string = ""
     pageItem?: PageListItem
     page?: Block[] = []
+    nowId: string = ""
 
     get createdTime(){
       if (this.pageItem){
@@ -48,6 +49,33 @@ export default class BlogContent extends Vue {
       }else{
         return []
       }
+    }
+
+    scrollY: number = 0;
+
+    handleScroll(): void {
+      this.scrollY = window.scrollY;
+    }
+    @Watch('scrollY')
+    scrollYChange(val: number) {
+      const allH2 = document.querySelectorAll("h2")
+      let id = allH2[0].id || ''
+      allH2.forEach(x=>{
+          if (x.offsetTop<=val){
+            id = x.id
+          }
+      })
+      this.nowId = id
+    }
+
+    mounted(): void {
+      window.addEventListener('scroll', this.handleScroll);
+      const allH2 = document.querySelectorAll("h2")
+      this.nowId = allH2[0].id || ''
+    }
+
+    destoryed(): void {
+      window.removeEventListener('scroll', this.handleScroll);
     }
 }
 </script>
@@ -67,9 +95,12 @@ export default class BlogContent extends Vue {
     display: flex;
     justify-content: space-between;
     .Article{
+      max-width: 670px;
     }
     .Index{
-
+      position: sticky;
+      top: 100px;
+      height: fit-content;
     }
   }
 }

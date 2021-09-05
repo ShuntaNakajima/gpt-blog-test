@@ -1,6 +1,9 @@
 <template>
-  <component class="BlockContent" :is="tag" v-if="richTexts">
+  <component class="BlockContent" :is="tag" v-if="richTexts" :id="idForH2">
     <span v-for="(text, index) in richTexts.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
+  </component>
+  <component class="BlockContent" :is="tag" v-else-if="image">
+    <img :src="image.file.url" :alt="imageCaption" class="ImageContent">
   </component>
 </template>
 
@@ -16,7 +19,7 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
-import { convertRichTextObject } from "~/util/Interface/Page";
+import { convertImageObject, convertRichTextObject, getIdForH2, getRichTextText } from "~/util/Interface/Page";
 
 @Component
 export default class BlockContent extends Vue {
@@ -41,15 +44,27 @@ export default class BlockContent extends Vue {
   }
 
   richTextText(richText:RichText){
-    if (richText.type === "text"){
-      return richText
-    } else {
-      return {} as RichTextTextInput
-    }
+    return getRichTextText(richText)
+  }
+
+  get idForH2(){
+    return getIdForH2(this.block)
   }
 
   get richTexts(){
     return convertRichTextObject(this.block)
+  }
+
+  get image(){
+    return convertImageObject(this.block)
+  }
+
+  get imageCaption(){
+    if (this.image?.caption){
+      return this.image.caption[0].plain_text
+    } else {
+      return ""
+    }
   }
 }
 </script>
@@ -59,11 +74,12 @@ h2{
   border-bottom: 0.5px solid $gray;
   line-height: 50px;
   margin-bottom: 2.2rem;
+  padding-top: 70px;
   &:not(:first-child){
-    margin-top: 3rem;
+    margin-top: calc(3rem - 70px);
   }
   &:first-child{
-    margin-top: 0;
+    margin-top: -79px;
   }
 }
 p{
@@ -71,5 +87,9 @@ p{
   font-size: 1.4rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.ImageContent{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

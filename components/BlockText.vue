@@ -19,7 +19,7 @@ import {
 @Component
 export default class BlockText extends Vue {
   @Prop()
-  text!: RichTextTextInput;
+  text!: RichTextText;
 
   get style(){
       const styles:{[name:string]: any} = {}

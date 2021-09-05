@@ -1,5 +1,5 @@
 import { PropertyValueMap } from "@notionhq/client/build/src/api-endpoints";
-import { Block, CheckboxPropertyValue, CreatedTimePropertyValue, FormulaPropertyValue, LastEditedTimePropertyValue, Page, StringFormulaValue, TitlePropertyValue } from "@notionhq/client/build/src/api-types";
+import { Block, CheckboxPropertyValue, CreatedTimePropertyValue, FileWithCaption, FormulaPropertyValue, LastEditedTimePropertyValue, Page, RichText, RichTextText, StringFormulaValue, TitlePropertyValue } from "@notionhq/client/build/src/api-types";
 
 export interface PageListItem extends PropertyValueMap {
     Title: TitlePropertyValue
@@ -30,4 +30,36 @@ export function convertRichTextObject(block:Block){
         default:
             return null
       }
+}
+
+export function convertImageObject(block:Block){
+    switch (block.type){
+        case "image":
+            switch (block[block.type].type){
+                case "file":
+                    return block[block.type] as FileWithCaption
+                default:
+                    null
+            }
+        default:
+            return null
+    }
+}
+
+export function getIdForH2(block:Block){
+    const textObject = convertRichTextObject(block)
+    if (textObject && block.type == "heading_2"){
+        const text = getRichTextText(textObject.text[0])
+        return text.plain_text?.replaceAll(' ','-')
+    }else{
+        return ""
+    }
+}
+
+export function getRichTextText(richText:RichText){
+    if (richText.type === "text"){
+        return richText
+    } else {
+        return {} as RichTextText
+    }
 }

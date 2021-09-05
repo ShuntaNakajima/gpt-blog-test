@@ -56,6 +56,9 @@ export default class BlockContentIndex extends Vue {
             margin-bottom: 5px;
             color: $gray;
             font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             &.now{
                 color: black;
             }

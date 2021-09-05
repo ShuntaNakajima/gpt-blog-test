@@ -13,6 +13,7 @@
           </div>
         </div>
       </div>
+      <Footer></Footer>
   </div>
 </template>
 
@@ -61,7 +62,7 @@ export default class BlogContent extends Vue {
       const allH2 = document.querySelectorAll("h2")
       let id = allH2[0].id || ''
       allH2.forEach(x=>{
-          if (x.offsetTop<=val){
+          if (x.offsetTop<=val + 100){
             id = x.id
           }
       })

@@ -9,6 +9,7 @@
           <div class="dummyCard"></div>
         </div>
       </div>
+      <Footer></Footer>
   </div>
 </template>
 

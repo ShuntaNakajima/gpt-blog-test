@@ -19,7 +19,9 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
+// @ts-ignore
 import VueEmbedGist from 'vue-embed-gist'
+// @ts-ignore
 import { Tweet } from 'vue-tweet-embed'
 @Component({
     components:{

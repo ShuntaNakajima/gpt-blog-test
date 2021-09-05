@@ -59,7 +59,7 @@ export function getIdForH2(block:Block){
 export function convertEmbetObject(block:Block){
     switch (block.type){
         case "embed":
-            return block.embed
+            return block
         default:
             return null
     }

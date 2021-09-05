@@ -1,4 +1,5 @@
 [build]
   Command = "yarn generate"
-  functions = "functions/dist"
   publish = "dist/"
+[functions]
+  directory = "functions/dist"

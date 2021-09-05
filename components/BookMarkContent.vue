@@ -3,11 +3,11 @@
       <div class="Info" :class="{'withdesc':data.description}">
         <div class="titleelement">
           <div class="title">{{data.title}}</div>
-          <div class="description" v-if="data.description">{{data.description}}</div>
+          <div class="description" v-show="data.description">{{data.description}}</div>
         </div>
         <div class="url">{{link}}</div>
       </div>
-      <div class="Image" v-if="data.image">
+      <div class="Image" v-show="data.image">
         <img :src="data.image" :alt="data.title">
       </div>
     </a>
@@ -40,8 +40,9 @@ import {
     },
     async fetch(){
       try {
+        const endpoint = process.client ? ".netlify/functions/embed": "https://blissful-lalande-58ac8c.netlify.app/.netlify/functions/embed"
         // @ts-ignore
-        const resp = await this.$axios.$get(`.netlify/functions/embed?url=${this.link}`)
+        const resp = await this.$axios.$get(`${endpoint}?url=${this.link}`)
         // @ts-ignore
         this.data = resp
       } catch (err) {
@@ -61,6 +62,7 @@ export default class BookMarkContent extends Vue {
         siteName: "",
         twitterCard: "",
     }
+
 }
 </script>
 

@@ -2,7 +2,9 @@
     <div class="PageIndex">
         <div class="Title">目次</div>
         <div class="Indexs">
-            <a v-for="item in indexItems" :key="idForH2(item)" :href="`#${idForH2(item)}`" :class="{'now':nowId===idForH2(item)}"><span v-if="nowId===idForH2(item)">👉　</span>{{richObject(item)}}</a>
+            <client-only>
+                <a v-for="item in indexItems" :key="idForH2(item)" :href="`#${idForH2(item)}`" :class="{'now':nowId===idForH2(item)}"><span v-if="nowId===idForH2(item)">👉　</span>{{richObject(item)}}</a>
+            </client-only>
         </div>
     </div>
 </template>

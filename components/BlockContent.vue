@@ -7,7 +7,9 @@
     <img :src="image.file.url" :alt="imageCaption" class="ImageContent">
   </component>
   <component class="BlockContent" :is="tag" v-else-if="embet">
-    <EmbedContent :embet="embet" />
+    <client-only>
+      <EmbedContent :embet="embet" />
+    </client-only>
   </component>
   <component class="BlockContent" :is="tag" v-else-if="bookmark">
     <BookMarkContent :link="bookmark" />

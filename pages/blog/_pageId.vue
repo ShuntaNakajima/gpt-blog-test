@@ -1,7 +1,7 @@
 <template>
   <div class="Content">
       <Header :selected="'blog'"></Header>
-      <div class="BlogContent" v-if="pageItem && page">
+      <div class="BlogContent" v-show="pageItem && page">
         <h1>{{pageItem.Title.title[0].plain_text}}</h1>
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">
@@ -64,14 +64,10 @@ export default class BlogContent extends Vue {
     scrollY: number = 0;
 
     handleScroll(): void {
-      this.scrollY = window.scrollY;
-    }
-    @Watch('scrollY')
-    scrollYChange(val: number) {
       const allH2 = document.querySelectorAll("h2")
       let id = allH2[0].id || ''
       allH2.forEach(x=>{
-          if (x.offsetTop<=val + 100){
+          if (x.offsetTop<=window.scrollY + 100){
             id = x.id
           }
       })

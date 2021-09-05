@@ -34,7 +34,7 @@ export default class BlogList extends Vue {
     background: $white;
     border-bottom: 0.5px solid #E7E7E7;
     &Content{
-        padding: 0 8px;
+        padding: 0 $content-padding;
         margin: auto;
         max-width: $content-width;
         height: 100%;

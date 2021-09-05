@@ -1,7 +1,8 @@
 $white: #FFFFFF;
 $gray: #A4A4A4;
 
-$content-width: 1116px;
+$content-width: 1100px;
+$content-padding: 32px;
 
 .image{
     width: 100%;
@@ -13,8 +14,12 @@ body {
     border: none;
     height: 100vh;
     font-family: 'Noto Sans JP', sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 500;
+}
+
+html {
+    font-size: 62.5%;
 }
 
 a {
@@ -30,15 +35,18 @@ a {
 }
 
 h1 {
-    font-size : 48px;
+    font-size : 2.4rem;
     line-height : 1;
+    font-weight: 500;
 }
 
 h2 {
-    font-size : 36px;
-    line-height : 1.3333;
+    font-size : 2.4rem;
+    line-height : 1;
+    font-weight: 500;
 }
 h3 {
-    font-size : 24px;
+    font-size : 1.8rem;
     line-height : 1;
+    font-weight: 500;
 }

@@ -41,19 +41,19 @@ export default class EmbedContent extends Vue {
 
   getType(){
     const link = this.embet.embed.url
-    let script = document.createElement('script');
+    // let script = document.createElement('script');
     if (link.includes('gist.github.com')){
-      script.setAttribute("src", `${link}.js`);
+      // script.setAttribute("src", `${link}.js`);
       this.type="gist"
     } else if (link.includes('twitter.com')){
-      script.setAttribute("src", `https://platform.twitter.com/widgets.js`)
+      // script.setAttribute("src", `https://platform.twitter.com/widgets.js`)
       this.data = link.split('/').slice(-1)[0]
       this.type="twitter"
     }
-    this.content = script.outerHTML
+    // this.content = script.outerHTML
   }
 
-  mounted(){
+  created(){
     this.getType()
   }
 }

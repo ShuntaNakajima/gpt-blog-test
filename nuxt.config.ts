@@ -59,10 +59,10 @@ export default {
   googleFonts: {
     families: {
       'Noto+Sans': {
-        wght: [500, 700]
+        wght: [400, 500, 700]
       },
       'Noto+Sans+JP': {
-        wght: [500,700]
+        wght: [400, 500,700]
       }
     }
   },

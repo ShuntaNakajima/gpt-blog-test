@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client"
-import { Page } from "@notionhq/client/build/src/api-types"
+import { Block, Filter, Page } from "@notionhq/client/build/src/api-types"
+import { convertPageListItem, PageListItem } from "../util/Interface/Page"
 
 class NotionAPIClient{
 
@@ -16,6 +17,25 @@ class NotionAPIClient{
             database_id: process.env.NOTION_DB || ""
         })
         return page.results
+    }
+
+    async getPage(page_id:string): Promise<[PageListItem,Block[]]> {
+        const filter:Filter = {
+            property: "page_id",
+            text: {
+                contains: page_id
+            }
+        }
+        const page = await this.client.databases.query({
+            database_id: process.env.NOTION_DB || "",
+            filter: filter
+        })
+        const pageItem = convertPageListItem(page.results[0])
+        const id = page.results[0].id
+        const page2 = await this.client.blocks.children.list({
+            block_id: id
+        })
+        return [pageItem,page2.results]
     }
 }
 

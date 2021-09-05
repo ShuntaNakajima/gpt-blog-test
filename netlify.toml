@@ -1,5 +1,5 @@
+[functions]
+  directory = "functions/api"
 [build]
   Command = "yarn generate"
   publish = "dist/"
-[functions]
-  directory = "functions/api"

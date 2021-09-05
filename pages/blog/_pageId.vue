@@ -1,7 +1,7 @@
 <template>
   <div class="Content">
       <Header :selected="'blog'"></Header>
-      <div class="BlogContent" v-show="pageItem && page">
+      <div class="BlogContent">
         <h1>{{pageItem.Title.title[0].plain_text}}</h1>
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">

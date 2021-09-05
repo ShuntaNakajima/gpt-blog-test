@@ -3,7 +3,7 @@
       <Header :selected="'blog'"></Header>
       <div class="PageList">
         <h2>Blog</h2>
-        <div class="PageListContentGrid" v-show="filterdListItems">
+        <div class="PageListContentGrid">
           <BlogCard :date="toString(item.created).string" :title="getTitle(item.Title)" :page_id="toString(item.page_id).string" v-for="item in filterdListItems" :key="toString(item.page_id).string" />
           <div class="dummyCard"></div>
           <div class="dummyCard"></div>

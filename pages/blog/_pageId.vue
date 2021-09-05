@@ -1,6 +1,6 @@
 <template>
   <div class="Content">
-      <Header></Header>
+      <Header :selected="'blog'"></Header>
       <div class="BlogContent" v-if="pageItem && page">
         <h1>{{pageItem.Title.title[0].plain_text}}</h1>
         <div class="timelabel">{{createdTime}}</div>

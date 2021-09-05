@@ -8,10 +8,10 @@
               <p class="headertitle">shunta.dev</p>
           </a>
           <div class="HeaderContentRight">
-              <a href="/blog" class="menuitem">
+              <a href="/blog" class="menuitem" :class="{'selected':selected=='blog'}">
                   Blog
               </a>
-              <a href="/about" class="menuitem">
+              <a href="/about" class="menuitem" :class="{'selected':selected=='about'}">
                   About
               </a>
           </div>
@@ -24,6 +24,8 @@ import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from
 
 @Component
 export default class BlogList extends Vue {
+    @Prop()
+    selected?: string
 }
 </script>
 
@@ -63,6 +65,9 @@ export default class BlogList extends Vue {
                 &:not(:last-child){
                     margin-right: 20px;
                 }
+            }
+            .selected{
+                color: black;
             }
         }
     }

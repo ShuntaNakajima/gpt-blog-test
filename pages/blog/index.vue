@@ -1,6 +1,6 @@
 <template>
   <div class="Content">
-      <Header></Header>
+      <Header :selected="'blog'"></Header>
       <div class="PageList">
         <h2>Blog</h2>
         <div class="PageListContentGrid" v-if="filterdListItems">

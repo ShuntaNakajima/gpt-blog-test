@@ -53,6 +53,7 @@ export default class BookMarkContent extends Vue {
     }
 
   async mounted() {
+    console.log("called")
     try {
       const resp = await this.$axios.$get(`.netlify/functions/embed?url=${this.link}`)
       this.data = resp

@@ -37,6 +37,16 @@ import {
 } from "nuxt-property-decorator";
 @Component({
     components:{
+    },
+    async fetch(){
+      try {
+        // @ts-ignore
+        const resp = await this.$axios.$get(`.netlify/functions/embed?url=${this.link}`)
+        // @ts-ignore
+        this.data = resp
+      } catch (err) {
+        console.error(err)
+      }
     }
 })
 export default class BookMarkContent extends Vue {
@@ -51,16 +61,6 @@ export default class BookMarkContent extends Vue {
         siteName: "",
         twitterCard: "",
     }
-
-  async mounted() {
-    console.log("called")
-    try {
-      const resp = await this.$axios.$get(`.netlify/functions/embed?url=${this.link}`)
-      this.data = resp
-    } catch (err) {
-      console.error(err)
-    }
-  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <a class="BlogCard" @click="click" :href="`/blog/${page_id}`">
     <div class="BlogCardContent">
-      <div class="BlogCardContentHeader">
+      <div class="BlogCardContentHeader" :style="styles">
         <div class="icon">
           <img src="~/assets/images/icon.png" alt="icon" class="image" />
         </div>
@@ -40,9 +40,29 @@ export default class BlogList extends Vue {
   imageUrl?: string;
   @Prop()
   page_id!: string
+  @Prop()
+  color!: string;
 
   @Emit()
   click(){}
+
+  get styles(){
+    const styles:{[name:string]: any} = {}
+    if (this.color == "0"){
+      styles['background'] = '#f5a7a7'
+    }else if (this.color == "1"){
+      styles['background'] = '#D3F5A7'
+    }else if (this.color == "2"){
+      styles['background'] = '#A7F5F5'
+    }else if (this.color == "3"){
+      styles['background'] = '#FFBC7E'
+    }else if (this.color == "4"){
+      styles['background'] = '#CFD4FF'
+    }else{
+      styles['background'] = '#F5B9FF'
+    }
+    return styles
+  }
 }
 </script>
 

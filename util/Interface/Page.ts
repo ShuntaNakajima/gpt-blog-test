@@ -7,6 +7,7 @@ export interface PageListItem extends PropertyValueMap {
     created: FormulaPropertyValue
     updated: FormulaPropertyValue
     page_id: FormulaPropertyValue
+    color: FormulaPropertyValue
 }
 
 export function convertPageListItem(page:Page){

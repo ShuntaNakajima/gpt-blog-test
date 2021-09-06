@@ -108,6 +108,9 @@ p{
   font-size: 1.4rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  @include mq(xs){
+    line-height: 1.8;
+  }
 }
 .ImageContent{
   margin-top: 20px;

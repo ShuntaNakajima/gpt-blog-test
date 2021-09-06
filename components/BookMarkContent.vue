@@ -82,8 +82,20 @@ export default class BookMarkContent extends Vue {
   margin-top: 30px;
   margin-bottom: 30px;
   cursor: pointer;
+  background: $white;
+  position: relative;
   @include mq(sm){
     flex-direction: column-reverse;
+  }
+  &::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  &:hover::after{
+    background: $hover;
+    opacity: 0.2;
   }
   .Info{
     max-width: 50%;

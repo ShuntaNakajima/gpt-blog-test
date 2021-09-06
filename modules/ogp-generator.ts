@@ -6,16 +6,6 @@ import apiClient from "../plugins/notion-api"
 import { convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
 
 const generateOGP = async function() {
-  //clean up current ogp images
-  const directory = './dist/ogp';
-  fs.readdir(directory, (err, files) => {
-    if (err) throw err
-    for (const file of files) {
-      fs.unlink(path.join(directory, file), err => {
-        if (err) throw err
-      })
-    }
-  })
  const pages = await apiClient.getPages()
  const pageItems = pages.map(page=> convertPageListItem(page))
  const textToSVG = TextToSVG.loadSync('./assets/font/NotoSansJP-Medium.otf')
@@ -77,7 +67,7 @@ const generateOGP = async function() {
     sharp('./assets/images/ogp/OGP_template_' + convertStringFormula(item.color).string + '.png' || "0")
       .composite(titleOptions.concat(authorOption,dateOption))
       .resize(1200, 630)
-      .toFile('./static/ogp/' + convertStringFormula(item.page_id).string + '.png', (error) => {
+      .toFile('./dist/ogp/' + convertStringFormula(item.page_id).string + '.png', (error) => {
       if (error) throw Error('OGP Generate Error: ' + error)
       })
     }
@@ -86,7 +76,7 @@ const generateOGP = async function() {
 
 module.exports = function() {
 // @ts-ignore
- this.nuxt.hook('generate:before', async generator => {
+ this.nuxt.hook('generate:done', async generator => {
   console.log('ogp-generator:start')
   await generateOGP()
   console.log('ogp-generator:finish')

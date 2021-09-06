@@ -74,9 +74,9 @@ const generateOGP = async function() {
 
 module.exports = function() {
 // @ts-ignore
- this.nuxt.hook('generate:before', (generator) => {
+ this.nuxt.hook('generate:before', async generator => {
   console.log('ogp-generator:start')
-  generateOGP()
+  await generateOGP()
   console.log('ogp-generator:finish')
  })
 }

@@ -2,7 +2,7 @@
   <div v-show="type">
     <ScriptContent :content="content" v-if="content && type==='gist'" />
     <ScriptContent :content="content" v-if="content && type==='twitter'" />
-    <Tweet :id="data" v-if="data && type==='twitter'"></Tweet>
+    <Tweet :id="data" v-if="data && type==='twitter'" widget-class="twitteremebed" :options="{ width: '100%' }"></Tweet>
   </div>
 </template>
 
@@ -59,8 +59,8 @@ export default class EmbedContent extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-.EmbedContent{
-  
+<style lang="scss">
+.twitteremebed >>> iframe{
+  max-width: 550px !important;
 }
 </style>

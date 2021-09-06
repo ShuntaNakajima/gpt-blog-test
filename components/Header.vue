@@ -37,6 +37,7 @@ export default class BlogList extends Vue {
     border-bottom: 0.5px solid #E7E7E7;
     position: fixed;
     top: 0;
+    z-index: 99;
     &Content{
         padding: 0 $content-padding;
         margin: auto;

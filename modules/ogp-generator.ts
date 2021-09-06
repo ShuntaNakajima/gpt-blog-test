@@ -1,9 +1,21 @@
+import fs from "fs"
+import path from "path"
 import sharp, { OverlayOptions } from 'sharp'
 import TextToSVG, { FontOptions, GenerationOptions } from 'text-to-svg'
 import apiClient from "../plugins/notion-api"
 import { convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
 
 const generateOGP = async function() {
+  //clean up current ogp images
+  const directory = './dist/ogp';
+  fs.readdir(directory, (err, files) => {
+    if (err) throw err
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), err => {
+        if (err) throw err
+      })
+    }
+  })
  const pages = await apiClient.getPages()
  const pageItems = pages.map(page=> convertPageListItem(page))
  const textToSVG = TextToSVG.loadSync('./assets/font/NotoSansJP-Medium.otf')

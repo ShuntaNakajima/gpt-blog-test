@@ -100,10 +100,16 @@ export default class BlogContent extends Vue {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    @include mq(md){
+      justify-content: center;
+    }
     .Article{
       max-width: 670px;
     }
     .Index{
+      @include mq(md){
+        display: none;
+      }
       position: sticky;
       top: 100px;
       height: fit-content;

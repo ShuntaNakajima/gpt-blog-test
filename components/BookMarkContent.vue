@@ -73,14 +73,23 @@ export default class BookMarkContent extends Vue {
   border: 0.5px solid $gray;
   min-height: 100px;
   max-height: 170px;
+  @include mq(sm){
+    max-height: 999px;
+  }
   display: flex;
   justify-content: space-between;
   overflow: hidden;
   margin-top: 30px;
   margin-bottom: 30px;
   cursor: pointer;
+  @include mq(sm){
+    flex-direction: column-reverse;
+  }
   .Info{
     max-width: 50%;
+    @include mq(sm){
+      max-width: 100%;
+    }
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -105,6 +114,9 @@ export default class BookMarkContent extends Vue {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
         overflow: hidden;
+        @include mq(sm){
+          display: none;
+        }
       }
     }
     .url{
@@ -118,9 +130,15 @@ export default class BookMarkContent extends Vue {
   }
   .Image{
     max-width: 50%;
+    @include mq(sm){
+      max-width: 100%;
+    }
     img{
       object-fit: contain;
       width: auto;
+      @include mq(sm){
+        width: 100%;
+      }
     }
   }
 }

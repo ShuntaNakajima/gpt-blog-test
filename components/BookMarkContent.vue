@@ -70,7 +70,7 @@ export default class BookMarkContent extends Vue {
 .BookMarkContent{
   width: 100%;
   border-radius: 5px;
-  border: 0.5px solid $ddd;
+  border: 0.5px solid $border;
   min-height: 100px;
   max-height: 170px;
   @include mq(sm){

@@ -77,6 +77,15 @@ export function convertBookMarkObject(block:Block){
     }
 }
 
+export function convertBulletedListItemObject(block:Block){
+    switch (block.type){
+        case "bulleted_list_item":
+            return block[block.type]
+        default:
+            return null
+    }
+}
+
 export function getRichTextText(richText:RichText){
     if (richText.type === "text"){
         return richText

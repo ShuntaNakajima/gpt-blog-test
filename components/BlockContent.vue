@@ -14,6 +14,9 @@
   <component class="BlockContent" :is="tag" v-else-if="bookmark">
     <BookMarkContent :link="bookmark" />
   </component>
+  <component class="BlockContent ListContent" :is="tag" v-else-if="bulletedList">
+    <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
+  </component>
   <!-- Add more feature here -->
   <!-- <component class="BlockContent" :is="tag" v-else>
     {{block}}
@@ -32,7 +35,7 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
-import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText } from "~/util/Interface/Page";
+import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText, convertBulletedListItemObject } from "~/util/Interface/Page";
 
 @Component
 export default class BlockContent extends Vue {
@@ -48,6 +51,8 @@ export default class BlockContent extends Vue {
       case "heading_3":
         return "h3"
       case 'paragraph':
+        return "p"
+      case 'bulleted_list_item':
         return "p"
       case 'embed':
         return "div"
@@ -78,6 +83,10 @@ export default class BlockContent extends Vue {
 
   get bookmark(){
     return convertBookMarkObject(this.block)
+  }
+
+  get bulletedList(){
+    return convertBulletedListItemObject(this.block)
   }
 
   get imageCaption(){
@@ -115,5 +124,16 @@ p{
 .ImageContent{
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.ListContent{
+  display: flex;
+  align-items: center;
+}
+.ListDot{
+  font-size: 2.8rem;
+  line-height: 1;
+  &::before{
+    content: "・"
+  }
 }
 </style>

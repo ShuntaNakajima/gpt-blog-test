@@ -28,15 +28,6 @@ import { convertStringFormula, PageListItem } from '~/util/Interface/Page'
       const page_id = params.pageId
       const [pageItem,page] = await apiClient.getPage(page_id)
       return { page_id, pageItem, page }
-    },
-    mounted(){
-      // const plugin = document.createElement("script");
-      // plugin.setAttribute(
-      //   "src",
-      //   "'https://platform.twitter.com/widgets.js'"
-      // );
-      // plugin.async = true;
-      // document.head.appendChild(plugin);
     }
 })
 export default class BlogContent extends Vue {
@@ -44,6 +35,18 @@ export default class BlogContent extends Vue {
     pageItem?: PageListItem
     page?: Block[] = []
     nowId: string = ""
+
+    head() {
+      return {
+        title: this.pageItem?.Title.title[0].plain_text,
+        meta: [
+          { hid: 'og:url', property: 'og:url', content: `https/shunta.dev/blog/${this.page_id}` },
+          { hid: 'og:image', property: 'og:image', content: `https/shunta.dev/ogp/${this.page_id}.png` },
+          { hid: 'og:title', property: 'og:title', content: this.pageItem?.Title.title[0].plain_text },
+          { hid: 'og:type', property: 'og:type', content: "article" },
+        ]
+      }
+    }
 
     get createdTime(){
       if (this.pageItem){

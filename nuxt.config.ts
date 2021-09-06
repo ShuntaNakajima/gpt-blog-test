@@ -46,6 +46,7 @@ export default {
     '@nuxtjs/google-fonts',
     '@nuxtjs/proxy',
     "@nuxtjs/axios",
+    '@/modules/ogp-generator'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

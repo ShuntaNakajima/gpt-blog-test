@@ -66,7 +66,7 @@ const generateOGP = async function() {
       .composite(titleOptions.concat(authorOption,dateOption))
       .resize(1200, 630)
       .toFile('./static/ogp/' + convertStringFormula(item.page_id).string + '.png', (error) => {
-      if (error) console.log('OGP Generate Error: ' + error)
+      if (error) throw Error('OGP Generate Error: ' + error)
       })
     }
   }

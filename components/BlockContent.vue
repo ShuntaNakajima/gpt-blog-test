@@ -12,7 +12,7 @@
     </client-only>
   </component>
   <component class="BlockContent" :is="tag" v-else-if="bookmark">
-    <BookMarkContent :link="bookmark" />
+    <BookMarkContent :link="bookmark" :OGPDict="OGPDict" />
   </component>
   <component class="BlockContent ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
@@ -35,12 +35,16 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
+import { OGP } from "~/plugins/getogp";
 import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText, convertBulletedListItemObject } from "~/util/Interface/Page";
 
 @Component
 export default class BlockContent extends Vue {
   @Prop()
   block!: Block;
+
+  @Prop()
+  OGPDict!: {[name:string]:OGP};
 
   get tag(){
     switch (this.block.type){

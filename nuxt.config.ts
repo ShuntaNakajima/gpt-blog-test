@@ -40,14 +40,13 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@aceforth/nuxt-optimized-images',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/proxy',
-    "@nuxtjs/axios",
     '@/modules/ogp-generator'
   ],
 
@@ -63,17 +62,9 @@ export default {
 
   googleFonts: {
     families: {
-      'Noto+Sans': {
-        wght: [400, 500, 700]
-      },
       'Noto+Sans+JP': {
         wght: [400, 500,700]
       }
-    }
-  },
-  proxy: {
-    '/.netlify/functions': {
-      target: 'http://localhost:9000'
     }
   },
 
@@ -83,5 +74,9 @@ export default {
       const pageListItems = pages.map(page => convertPageListItem(page))
       return pageListItems.map(item => `/blog/${convertStringFormula(item.page_id).string}`)
     }
-  }
+  },
+
+  optimizedImages: {
+    optimizeImages: true,
+  },
 }

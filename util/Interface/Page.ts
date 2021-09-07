@@ -1,4 +1,6 @@
 import { PropertyValueMap } from "@notionhq/client/build/src/api-endpoints";
+import { RichTextPropertyValue } from "@notionhq/client/build/src/api-types";
+import { PropertyValue } from "@notionhq/client/build/src/api-types";
 import { Block, CheckboxPropertyValue, CreatedTimePropertyValue, FileWithCaption, FormulaPropertyValue, LastEditedTimePropertyValue, Page, RichText, RichTextText, StringFormulaValue, TitlePropertyValue } from "@notionhq/client/build/src/api-types";
 
 export interface PageListItem extends PropertyValueMap {
@@ -8,6 +10,7 @@ export interface PageListItem extends PropertyValueMap {
     updated: FormulaPropertyValue
     page_id: FormulaPropertyValue
     color: FormulaPropertyValue
+    description: RichTextPropertyValue
 }
 
 export function convertPageListItem(page:Page){

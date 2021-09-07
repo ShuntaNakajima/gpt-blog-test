@@ -6,7 +6,7 @@
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">
           <div class="Article">
-            <BlockContent v-for="block in page" :key="block.id" :block="block" />
+            <BlockContent v-for="block in page" :key="block.id" :block="block" :OGPDict="OGPDict" />
           </div>
           <div class="Index">
             <BlockContentIndex :indexItems="indexItems" :nowId="nowId" />
@@ -21,13 +21,29 @@
 import { Block } from '@notionhq/client/build/src/api-types'
 import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
 import apiClient from '~/plugins/notion-api'
-import { convertStringFormula, PageListItem } from '~/util/Interface/Page'
+import getOGP from '~/plugins/getogp'
+import { convertBookMarkObject, convertStringFormula, PageListItem } from '~/util/Interface/Page'
+
+export interface OGP {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  siteName: string;
+  twitterCard: string;
+}
 
 @Component({
     async asyncData({ params }) {
       const page_id = params.pageId
       const [pageItem,page] = await apiClient.getPage(page_id)
-      return { page_id, pageItem, page }
+      // @ts-ignore
+      const bookmarkurls:string[] = page.filter(x=>x.type=="bookmark").map(x=>x.bookmark.url)
+      const OGPDict: {[name:string]:OGP} = {}
+      for (const url of bookmarkurls){
+        OGPDict[url] = await getOGP(url)
+      }
+      return { page_id, pageItem, page, OGPDict }
     }
 })
 export default class BlogContent extends Vue {
@@ -35,14 +51,20 @@ export default class BlogContent extends Vue {
     pageItem?: PageListItem
     page?: Block[] = []
     nowId: string = ""
+    OGPDict: {[name:string]:OGP} = {}
 
     head() {
+      let description = ""
+      if (this.pageItem?.description.rich_text[0]){
+        description = this.pageItem?.description.rich_text[0].plain_text
+      }
       return {
         title: this.pageItem?.Title.title[0].plain_text,
         meta: [
           { hid: 'og:url', property: 'og:url', content: `https://shunta.dev/blog/${this.page_id}` },
           { hid: 'og:image', property: 'og:image', content: `https://shunta.dev/ogp/${this.page_id}.png` },
           { hid: 'og:title', property: 'og:title', content: this.pageItem?.Title.title[0].plain_text },
+          { hid: 'og:description', property: 'og:description', content: description },
           { hid: 'og:type', property: 'og:type', content: "article" },
         ]
       }
@@ -66,21 +88,29 @@ export default class BlogContent extends Vue {
 
     scrollY: number = 0;
 
+    getBookmark(block:Block){
+      return convertBookMarkObject(block)
+    }
+
     handleScroll(): void {
       const allH2 = document.querySelectorAll("h2")
-      let id = allH2[0].id || ''
-      allH2.forEach(x=>{
+      if (allH2.length > 0){
+        let id = allH2[0].id || ''
+        allH2.forEach(x=>{
           if (x.offsetTop<=window.scrollY + 100){
             id = x.id
           }
-      })
-      this.nowId = id
+        })
+        this.nowId = id
+      }
     }
 
     mounted(): void {
       window.addEventListener('scroll', this.handleScroll);
       const allH2 = document.querySelectorAll("h2")
-      this.nowId = allH2[0].id || ''
+      if (allH2.length > 0){
+        this.nowId = allH2[0].id || ''
+      }
     }
 
     destoryed(): void {

@@ -1,28 +1,19 @@
 <template>
     <a class="BookMarkContent" :href="link" target="_blank">
-      <div class="Info" :class="{'withdesc':data.description}">
+      <div class="Info" :class="{'withdesc':ogpData.description}">
         <div class="titleelement">
-          <div class="title">{{data.title}}</div>
-          <div class="description" v-show="data.description">{{data.description}}</div>
+          <div class="title">{{ogpData.title}}</div>
+          <div class="description" v-show="ogpData.description">{{ogpData.description[0]}}</div>
         </div>
         <div class="url">{{link}}</div>
       </div>
-      <div class="Image" v-show="data.image">
-        <img :src="data.image" :alt="data.title">
+      <div class="Image" v-show="ogpData.image">
+        <img :src="ogpData.image" :alt="ogpData.title">
       </div>
     </a>
 </template>
 
 <script lang="ts">
-
-interface OGP {
-  title: string;
-  description: string;
-  url: string;
-  image: string;
-  siteName: string;
-  twitterCard: string;
-}
 
 import { Block, EmbedBlock, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
 import {
@@ -35,32 +26,31 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
+import { OGP } from "~/plugins/getogp";
 @Component({
     components:{
-    },
-    async fetch(){
-      try {
-        const endpoint = process.client ? ".netlify/functions/embed": "https://blissful-lalande-58ac8c.netlify.app/.netlify/functions/embed"
-        // @ts-ignore
-        const resp = await this.$axios.$get(`${endpoint}?url=${this.link}`)
-        // @ts-ignore
-        this.data = resp
-      } catch (err) {
-        console.error(err)
-      }
     }
 })
 export default class BookMarkContent extends Vue {
     @Prop()
     link!: string
 
-    data: OGP = {
-        title: "",
-        description: "",
-        url: "",
-        image: "",
-        siteName: "",
-        twitterCard: "",
+    @Prop()
+    OGPDict!: {[name:string]:OGP};
+
+    get ogpData():OGP{
+      if (this.OGPDict){
+        return this.OGPDict[this.link]
+      }else{
+        return {
+          title: "",
+          description: "",
+          url: "",
+          image: "",
+          siteName: "",
+          twitterCard: "",
+        }
+      }
     }
 
 }
@@ -98,7 +88,7 @@ export default class BookMarkContent extends Vue {
     opacity: 0.2;
   }
   .Info{
-    max-width: 50%;
+    max-width: calc(50% - 32px);
     @include mq(sm){
       max-width: 100%;
     }
@@ -148,6 +138,7 @@ export default class BookMarkContent extends Vue {
     img{
       object-fit: contain;
       width: auto;
+      float: right;
       @include mq(sm){
         width: 100%;
       }

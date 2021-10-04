@@ -12,7 +12,7 @@
     </client-only>
   </component>
   <component :is="tag" v-else-if="bookmark">
-    <BookMarkContent :link="bookmark" />
+    <!-- <BookMarkContent :bookmark="bookmark" /> -->
   </component>
   <component class="ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>

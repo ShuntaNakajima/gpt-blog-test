@@ -6,7 +6,7 @@
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">
           <div class="Article">
-            <BlockContent v-for="block in page" :key="block.id" :block="block" :OGPDict="OGPDict" />
+            <BlockContent v-for="block in page" :key="block.id" :block="block" />
           </div>
           <div class="Index">
             <LazyBlockContentIndex :indexItems="indexItems" :nowId="nowId" />
@@ -58,7 +58,7 @@ export default class BlogContent extends Vue {
           { hid: 'og:url', property: 'og:url', content: `https://shunta.dev/blog/${this.page_id}` },
           { hid: 'og:image', property: 'og:image', content: `https://shunta.dev/ogp/${this.page_id}.png` },
           { hid: 'og:title', property: 'og:title', content: this.pageItem?.Title.title[0].plain_text },
-          { hid: 'og:description', property: 'og:description', content: this.pageItem?.description.rich_text[0].plain_text || "" },
+          { hid: 'og:description', property: 'og:description', content: description },
           { hid: 'og:type', property: 'og:type', content: "article" },
         ]
       }

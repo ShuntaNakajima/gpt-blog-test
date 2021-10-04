@@ -5,7 +5,7 @@
           <div class="title">{{ogp.title}}</div>
           <div class="description" v-show="ogp.description">{{ogp.description[0]}}</div>
         </div>
-        <div class="url">{{link}}</div>
+        <div class="url">{{bookmark.bookmark.url}}</div>
       </div>
       <div class="Image" v-show="ogp.image">
         <img :src="ogp.image" :alt="ogp.title">
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 
-import { Block, EmbedBlock, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
+import { Block, BookmarkBlock, EmbedBlock, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
 import {
   Component,
   Inject,
@@ -39,7 +39,7 @@ import ogpClient, { OGP } from "~/plugins/getogp";
 })
 export default class BookMarkContent extends Vue {
     @Prop()
-    link!: string
+    bookmark!: BookmarkBlock
 
     ogp!: OGP
 }

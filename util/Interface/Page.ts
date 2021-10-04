@@ -71,10 +71,8 @@ export function convertEmbetObject(block:Block){
 
 export function convertBookMarkObject(block:Block){
     switch (block.type){
-        // @ts-ignore
         case "bookmark":
-            // @ts-ignore
-            return block.bookmark.url as string
+            return block
         default:
             return null
     }

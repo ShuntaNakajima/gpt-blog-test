@@ -1,14 +1,14 @@
 <template>
     <a class="BookMarkContent" :href="link" target="_blank">
-      <div class="Info" :class="{'withdesc':ogpData.description}">
+      <div class="Info" :class="{'withdesc':ogp.description}">
         <div class="titleelement">
-          <div class="title">{{ogpData.title}}</div>
-          <div class="description" v-show="ogpData.description">{{ogpData.description[0]}}</div>
+          <div class="title">{{ogp.title}}</div>
+          <div class="description" v-show="ogp.description">{{ogp.description[0]}}</div>
         </div>
         <div class="url">{{link}}</div>
       </div>
-      <div class="Image" v-show="ogpData.image">
-        <img :src="ogpData.image" :alt="ogpData.title">
+      <div class="Image" v-show="ogp.image">
+        <img :src="ogp.image" :alt="ogp.title">
       </div>
     </a>
 </template>
@@ -26,33 +26,22 @@ import {
   Watch,
   Emit
 } from "nuxt-property-decorator";
-import { OGP } from "~/plugins/getogp";
+import ogpClient, { OGP } from "~/plugins/getogp";
 @Component({
     components:{
+    },
+    async fetch(){
+      // @ts-ignore
+      const data = await ogpClient.getOGP(this.link)
+      // @ts-ignore
+      this.ogp = data
     }
 })
 export default class BookMarkContent extends Vue {
     @Prop()
     link!: string
 
-    @Prop()
-    OGPDict!: {[name:string]:OGP};
-
-    get ogpData():OGP{
-      if (this.OGPDict){
-        return this.OGPDict[this.link]
-      }else{
-        return {
-          title: "",
-          description: "",
-          url: "",
-          image: "",
-          siteName: "",
-          twitterCard: "",
-        }
-      }
-    }
-
+    ogp!: OGP
 }
 </script>
 

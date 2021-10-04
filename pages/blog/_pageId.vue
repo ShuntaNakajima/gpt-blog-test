@@ -9,7 +9,7 @@
             <BlockContent v-for="block in page" :key="block.id" :block="block" :OGPDict="OGPDict" />
           </div>
           <div class="Index">
-            <BlockContentIndex :indexItems="indexItems" :nowId="nowId" />
+            <LazyBlockContentIndex :indexItems="indexItems" :nowId="nowId" />
           </div>
         </div>
       </div>
@@ -21,7 +21,6 @@
 import { Block } from '@notionhq/client/build/src/api-types'
 import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
 import apiClient from '~/plugins/notion-api'
-import getOGP from '~/plugins/getogp'
 import { convertBookMarkObject, convertStringFormula, PageListItem } from '~/util/Interface/Page'
 
 export interface OGP {
@@ -39,11 +38,7 @@ export interface OGP {
       const [pageItem,page] = await apiClient.getPage(page_id)
       // @ts-ignore
       const bookmarkurls:string[] = page.filter(x=>x.type=="bookmark").map(x=>x.bookmark.url)
-      const OGPDict: {[name:string]:OGP} = {}
-      for (const url of bookmarkurls){
-        OGPDict[url] = await getOGP(url)
-      }
-      return { page_id, pageItem, page, OGPDict }
+      return { page_id, pageItem, page }
     }
 })
 export default class BlogContent extends Vue {
@@ -51,7 +46,6 @@ export default class BlogContent extends Vue {
     pageItem?: PageListItem
     page?: Block[] = []
     nowId: string = ""
-    OGPDict: {[name:string]:OGP} = {}
 
     head() {
       let description = ""

@@ -31,6 +31,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/notion-api.ts', ssr: true },
+    { src: '~/plugins/getogp.ts', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,26 +48,19 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
-    '@nuxtjs/google-fonts',
-    '@/modules/ogp-generator'
+    '@/modules/ogp-generator',
+    'nuxt-lazy-load'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    analyze: true
   },
 
   styleResources: {
     scss: [
      '@/assets/css/_config.scss',
     ],
-  },
-
-  googleFonts: {
-    families: {
-      'Noto+Sans+JP': {
-        wght: [400, 500,700]
-      }
-    }
   },
 
   generate: {

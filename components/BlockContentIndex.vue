@@ -2,9 +2,7 @@
     <div class="PageIndex">
         <div class="Title">目次</div>
         <div class="Indexs">
-            <client-only>
-                <a v-for="item in indexItems" :key="idForH2(item)" :href="`#${idForH2(item)}`" :class="{'now':nowId===idForH2(item)}"><span v-if="nowId===idForH2(item)">👉　</span>{{richObject(item)}}</a>
-            </client-only>
+            <a v-for="(item,index) in indexItems" :key="idForH2(item)" :href="`#${idForH2(item)}`" :class="{'now':isShowArrow(item,index)}"><span v-if="isShowArrow(item,index)">👉　</span>{{richObject(item)}}</a>
         </div>
     </div>
 </template>
@@ -31,8 +29,8 @@ export default class BlockContentIndex extends Vue {
     @Prop()
     nowId!: string
 
-    get richTexts(){
-        return this.indexItems.map(item=>convertRichTextObject(item)?.text)
+    isShowArrow(item:Block,index:number){
+        return this.nowId===this.idForH2(item) || (this.nowId==='' && index===0)
     }
 
     idForH2(block:Block){

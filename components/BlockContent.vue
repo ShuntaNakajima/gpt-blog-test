@@ -1,24 +1,24 @@
 <template>
-  <component class="BlockContent" :is="tag" v-if="richTexts" :id="idForH2">
+  <component :is="tag" v-if="richTexts" :id="idForH2">
     <span v-for="(text, index) in richTexts.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
     <br v-if="richTexts.text.length === 0">
   </component>
-  <component class="BlockContent" :is="tag" v-else-if="image">
+  <component :is="tag" v-else-if="image">
     <img :src="image.file.url" :alt="imageCaption" class="ImageContent">
   </component>
-  <component class="BlockContent" :is="tag" v-else-if="embet">
+  <component :is="tag" v-else-if="embet">
     <client-only>
       <EmbedContent :embet="embet" />
     </client-only>
   </component>
-  <component class="BlockContent" :is="tag" v-else-if="bookmark">
-    <BookMarkContent :link="bookmark" :OGPDict="OGPDict" />
+  <component :is="tag" v-else-if="bookmark">
+    <BookMarkContent :link="bookmark" />
   </component>
-  <component class="BlockContent ListContent" :is="tag" v-else-if="bulletedList">
+  <component class="ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
   </component>
   <!-- Add more feature here -->
-  <!-- <component class="BlockContent" :is="tag" v-else>
+  <!-- <component :is="tag" v-else>
     {{block}}
   </component> -->
 </template>
@@ -42,9 +42,6 @@ import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertR
 export default class BlockContent extends Vue {
   @Prop()
   block!: Block;
-
-  @Prop()
-  OGPDict!: {[name:string]:OGP};
 
   get tag(){
     switch (this.block.type){

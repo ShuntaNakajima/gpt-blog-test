@@ -31,7 +31,7 @@ const fetchOGP = async function(pageItems:PageListItem[]) {
         superagent.get(imageUrl).end((err, res) => {
           const base64 = btoa(res.body);
           ogp.image = `data:image/png;base64,${base64}`
-          fs.writeFile(`./dist/images/${ogp.url.replaceAll('/','_')}.json`, JSON.stringify(ogp), function(err) {
+          fs.writeFile(`./tmp/${ogp.url.replaceAll('/','_')}.json`, JSON.stringify(ogp), function(err) {
             if (err) {
               console.log(err);
             }

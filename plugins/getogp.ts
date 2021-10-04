@@ -13,7 +13,7 @@ class OGPClient{
     constructor(){}
 
     async getOGP(url:string){
-        const data = await fs.readFile(`./dist/images/${url.replaceAll('/','_')}.json`, {encoding: 'utf-8'})
+        const data = await fs.readFile(`./tmp/${url.replaceAll('/','_')}.json`, {encoding: 'utf-8'})
         const ogp = JSON.parse(data) as OGP
         return ogp
     }

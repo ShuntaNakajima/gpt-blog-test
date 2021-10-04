@@ -143,6 +143,7 @@ export default class BlogContent extends Vue {
     }
     .Article{
       max-width: 670px;
+      width: 100%;
     }
     .Index{
       @include mq(md){

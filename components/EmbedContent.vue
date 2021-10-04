@@ -48,7 +48,6 @@ export default class EmbedContent extends Vue {
     } else if (link.includes('twitter.com')){
       script.setAttribute("src", `https://platform.twitter.com/widgets.js`)
       this.data = link.split('/').slice(-1)[0].split('?')[0]
-      console.log(this.data)
       this.type="twitter"
     }
     this.content = script.outerHTML

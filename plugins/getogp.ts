@@ -13,8 +13,13 @@ class OGPClient{
     constructor(){}
 
     async getOGP(url:string){
-        const data = await fs.readFile(`./tmp/${url.replaceAll('/','_')}.json`, {encoding: 'utf-8'})
-        const ogp = JSON.parse(data) as OGP
+        let ogp: OGP|null
+        try {
+            const data = await fs.readFile(`./tmp/${url.replaceAll('/','_')}.json`, {encoding: 'utf-8'})
+            ogp = JSON.parse(data) as OGP
+        } catch (error) {
+            ogp = null
+        }
         return ogp
     }
 }

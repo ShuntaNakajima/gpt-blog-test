@@ -30,13 +30,15 @@ const fetchOGP = async function(pageItems:PageListItem[]) {
           let ogp = await ogpClient.getOGP(bookmark.bookmark.url)
           const imageUrl = ogp.image
           superagent.get(imageUrl).end((err, res) => {
-            const base64 = btoa(res.body);
-            ogp.image = `data:image/png;base64,${base64}`
-            fs.writeFile(`./tmp/${ogp.url.replaceAll('/','_')}.json`, JSON.stringify(ogp), function(err) {
-              if (err) {
-                console.log(err);
-              }
-            });
+            if(res){
+              const base64 = btoa(res.body);
+              ogp.image = `data:image/png;base64,${base64}`
+              fs.writeFile(`./tmp/${block.id}.json`, JSON.stringify(ogp), function(err) {
+                if (err) {
+                  console.log(err);
+                }
+              });
+            }
           });
         }catch{
           console.log("🙅‍♀️ Error occur while loading ",bookmark.bookmark.url)

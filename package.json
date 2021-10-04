@@ -14,6 +14,7 @@
     "@babel/preset-typescript": "^7.15.0",
     "@notionhq/client": "^0.3.1",
     "@types/sharp": "^0.28.6",
+    "@types/superagent": "^4.1.13",
     "@types/text-to-svg": "^3.1.1",
     "core-js": "^3.15.1",
     "fs": "^0.0.1-security",
@@ -25,7 +26,9 @@
     "ogp-parser": "^0.6.0",
     "sass-loader": "^10",
     "sharp": "^0.29.0",
+    "superagent": "^6.1.0",
     "text-to-svg": "^3.1.5",
+    "typed-vuex": "^0.2.0",
     "vue-embed-gist": "^1.2.0",
     "vue-tweet-embed": "^2.4.0",
     "vuex-module-decorators": "^1.0.1"

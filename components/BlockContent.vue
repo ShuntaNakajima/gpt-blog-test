@@ -11,8 +11,10 @@
       <EmbedContent :embet="embet" />
     </client-only>
   </component>
-  <component :is="tag" v-else-if="bookmark">
-    <!-- <BookMarkContent :bookmark="bookmark" /> -->
+  <component :is="tag" v-else-if="bookmark && ogp">
+    <client-only>
+      <LazyBookMarkContent :ogp="ogp" />
+    </client-only>
   </component>
   <component class="ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
@@ -42,6 +44,9 @@ import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertR
 export default class BlockContent extends Vue {
   @Prop()
   block!: Block;
+
+  @Prop()
+  ogp?: OGP;
 
   get tag(){
     switch (this.block.type){

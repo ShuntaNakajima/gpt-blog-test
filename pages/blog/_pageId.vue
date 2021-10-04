@@ -6,7 +6,7 @@
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">
           <div class="Article">
-            <BlockContent v-for="block in page" :key="block.id" :block="block" />
+            <BlockContent v-for="block in page" :key="block.id" :block="block" :ogp="ogps[block.id]" />
           </div>
           <div class="Index">
             <LazyBlockContentIndex :indexItems="indexItems" :nowId="nowId" />
@@ -20,6 +20,7 @@
 <script lang="ts">
 import { Block } from '@notionhq/client/build/src/api-types'
 import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
+import ogpClient from '~/plugins/getogp'
 import apiClient from '~/plugins/notion-api'
 import { convertBookMarkObject, convertStringFormula, PageListItem } from '~/util/Interface/Page'
 
@@ -36,9 +37,16 @@ export interface OGP {
     async asyncData({ params }) {
       const page_id = params.pageId
       const [pageItem,page] = await apiClient.getPage(page_id)
-      // @ts-ignore
-      const bookmarkurls:string[] = page.filter(x=>x.type=="bookmark").map(x=>x.bookmark.url)
-      return { page_id, pageItem, page }
+      const ogps:{[name:string]: OGP} = {}
+      const bookmarkblocks = page.filter(x=>x.type=="bookmark")
+      for (let block of bookmarkblocks) {
+        const bookmarkBlock = convertBookMarkObject(block)
+        if (bookmarkBlock) {
+          const ogp = await ogpClient.getOGP(bookmarkBlock?.bookmark.url)
+          ogps[block.id] = ogp
+        }
+      }
+      return { page_id, pageItem, page, ogps }
     }
 })
 export default class BlogContent extends Vue {
@@ -46,6 +54,7 @@ export default class BlogContent extends Vue {
     pageItem?: PageListItem
     page?: Block[] = []
     nowId: string = ""
+    ogps: {[name:string]: OGP} = {}
 
     head() {
       let description = ""

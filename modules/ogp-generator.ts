@@ -5,9 +5,7 @@ import TextToSVG, { FontOptions, GenerationOptions } from 'text-to-svg'
 import apiClient from "../plugins/notion-api"
 import { convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
 
-const generateOGP = async function() {
- const pages = await apiClient.getPages()
- const pageItems = pages.map(page=> convertPageListItem(page))
+const generateOGP = async function(pageItems:PageListItem[]) {
  const textToSVG = TextToSVG.loadSync('./assets/font/NotoSansJP-Medium.otf')
  const svgOptions:GenerationOptions = {x: 0, y: 0, fontSize: 48, anchor: "top", attributes: {fill: "black"}};
  const max_width = 1040
@@ -77,8 +75,11 @@ const generateOGP = async function() {
 module.exports = function() {
 // @ts-ignore
  this.nuxt.hook('generate:done', async generator => {
-  console.log('ogp-generator:start')
-  await generateOGP()
-  console.log('ogp-generator:finish')
+  console.log('🔎 ogp-generator:get page')
+  const pages = await apiClient.getPages()
+  const pageItems = pages.map(page=> convertPageListItem(page))
+  console.log('🔎 ogp-generator:start generate OGP')
+  await generateOGP(pageItems)
+  console.log('🔎 ogp-generator:finish all 🚀')
  })
 }

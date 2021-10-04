@@ -48,13 +48,19 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
+    '@/modules/ogp-api-generator',
     '@/modules/ogp-generator',
     'nuxt-lazy-load'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    analyze: true
+    analyze: true,
+    extend (config:any, ctx:any) {
+      config.node = {
+        fs: "empty" 
+      }
+    }
   },
 
   styleResources: {

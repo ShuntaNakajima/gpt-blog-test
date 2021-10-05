@@ -12,9 +12,7 @@
     </client-only>
   </component>
   <component :is="tag" v-else-if="bookmark">
-    <client-only>
-      <LazyBookMarkContent :ogp="ogp" />
-    </client-only>
+      <BookMarkContent :ogp="ogp" />
   </component>
   <component class="ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>

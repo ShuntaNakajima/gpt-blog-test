@@ -80,4 +80,14 @@ export default {
   optimizedImages: {
     optimizeImages: true,
   },
+
+  router: {
+    extendRoutes (routes:any, resolve:any) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, 'pages/blog/index.vue')
+      })
+    }
+  }
 }

@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
 @Component
 export default class BlogList extends Vue {

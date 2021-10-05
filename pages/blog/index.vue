@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { FormulaPropertyValue, TitlePropertyValue } from '@notionhq/client/build/src/api-types'
-import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import apiClient from '~/plugins/notion-api'
 import { convertPageListItem, convertStringFormula, PageListItem } from '~/util/Interface/Page'
 

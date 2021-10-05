@@ -8,16 +8,11 @@
 
 <script lang="ts">
 
-import { Block, EmbedBlock, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
+import {EmbedBlock} from "@notionhq/client/build/src/api-types";
 import {
   Component,
-  Inject,
-  Model,
   Prop,
-  Provide,
   Vue,
-  Watch,
-  Emit
 } from "nuxt-property-decorator";
 // @ts-ignore
 import VueEmbedGist from 'vue-embed-gist'

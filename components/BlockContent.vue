@@ -24,16 +24,11 @@
 </template>
 
 <script lang="ts">
-import { Block, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
+import { Block, RichText } from "@notionhq/client/build/src/api-types";
 import {
   Component,
-  Inject,
-  Model,
   Prop,
-  Provide,
   Vue,
-  Watch,
-  Emit
 } from "nuxt-property-decorator";
 import { OGP } from "~/plugins/getogp";
 import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText, convertBulletedListItemObject } from "~/util/Interface/Page";

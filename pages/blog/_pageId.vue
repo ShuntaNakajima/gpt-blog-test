@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Block } from '@notionhq/client/build/src/api-types'
-import { Component , Inject , Model , Prop , Provide , Vue , Watch , Emit } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import ogpClient from '~/plugins/getogp'
 import apiClient from '~/plugins/notion-api'
 import { convertBookMarkObject, convertStringFormula, PageListItem } from '~/util/Interface/Page'

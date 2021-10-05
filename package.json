@@ -28,10 +28,8 @@
     "sharp": "^0.29.0",
     "superagent": "^6.1.0",
     "text-to-svg": "^3.1.5",
-    "typed-vuex": "^0.2.0",
     "vue-embed-gist": "^1.2.0",
-    "vue-tweet-embed": "^2.4.0",
-    "vuex-module-decorators": "^1.0.1"
+    "vue-tweet-embed": "^2.4.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.7",

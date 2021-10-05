@@ -21,12 +21,8 @@
 <script lang="ts">
 import {
   Component,
-  Inject,
-  Model,
   Prop,
-  Provide,
   Vue,
-  Watch,
   Emit
 } from "nuxt-property-decorator";
 

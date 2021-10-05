@@ -1,5 +1,5 @@
 <template>
-    <a class="BookMarkContent" :href="ogp.url" target="_blank">
+    <a class="BookMarkContent" :href="ogp.url" target="_blank" rel="noopener">
       <div class="Info" :class="{'withdesc':ogp.description}">
         <div class="titleelement">
           <div class="title">{{ogp.title}}</div>
@@ -16,19 +16,10 @@
 </template>
 
 <script lang="ts">
-
-import { Block, BookmarkBlock, EmbedBlock, RichText, RichTextText, RichTextTextInput } from "@notionhq/client/build/src/api-types";
-import { Context } from "@nuxt/types";
 import {
   Component,
-  Inject,
-  Model,
   Prop,
-  Provide,
   Vue,
-  Watch,
-  Emit,
-  getModule
 } from "nuxt-property-decorator";
 import { OGP } from "~/plugins/getogp";
 

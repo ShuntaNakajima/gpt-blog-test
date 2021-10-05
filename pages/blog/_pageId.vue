@@ -6,8 +6,8 @@
           <h1>{{pageItem.Title.title[0].plain_text}}</h1>
           <div class="timelabel">{{createdTime}}</div>
         </div>
-        <div class="TitleContent WithCover" v-else>
-          <img :src="page_obj.cover.file.url" class="Cover_IMG" alt="cover">
+        <div class="TitleContentWithCover" v-else>
+          <img :src="page_obj.cover.file.url" loading="lazy" class="Cover_IMG" alt="cover">
           <div class="Cover_IMG_Wrapper"></div>
           <div class="TitleWithCover">
             <h1>{{pageItem.Title.title[0].plain_text}}</h1>
@@ -146,14 +146,19 @@ export default class BlogContent extends Vue {
   @include mq(md){
     justify-content: center;
   }
-  .WithCover{
+  .TitleContent{
+    padding: 0 $content-padding;
+  }
+  .TitleContentWithCover{
     display: flex;
-    max-width: 670px;
+    max-width: calc(670px);
     width: 100%;
     height: 380px;
     position: relative;
+    margin: 0 $content-padding;
     @include mq(md){
       align-self: center;
+      margin: 0;
     }
     .TitleWithCover{
       position: absolute;
@@ -181,12 +186,12 @@ export default class BlogContent extends Vue {
     color: $gray;
   }
   .BlogBlocks{
+    padding: 0 $content-padding;
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     @include mq(md){
       justify-content: center;
-      padding: 0 $content-padding;
     }
     .Article{
       max-width: 670px;

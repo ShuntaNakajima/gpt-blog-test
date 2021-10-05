@@ -77,6 +77,7 @@ export default class BlogList extends Vue {
   background: $white;
   overflow: hidden;
   cursor: pointer;
+  z-index: 1;
   &:before {
     content: "";
     display: block;

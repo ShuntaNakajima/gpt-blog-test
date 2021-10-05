@@ -4,7 +4,7 @@
     <br v-if="richTexts.text.length === 0">
   </component>
   <component :is="tag" v-else-if="image">
-    <img :src="image.file.url" :alt="imageCaption" class="ImageContent">
+    <img :src="image.file.url" :alt="imageCaption" loading="lazy" class="ImageContent">
   </component>
   <component :is="tag" v-else-if="embet">
     <client-only>
@@ -12,10 +12,10 @@
     </client-only>
   </component>
   <component :is="tag" v-else-if="bookmark">
-      <BookMarkContent :ogp="ogp" />
+      <BookMarkContent v-if="ogp" :ogp="ogp" />
   </component>
   <component class="ListContent" :is="tag" v-else-if="bulletedList">
-    <div class="ListDot"></div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span>
+    <div class="ListDot"></div><div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span></div>
   </component>
   <!-- Add more feature here -->
   <!-- <component :is="tag" v-else>

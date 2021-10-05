@@ -20,7 +20,7 @@ export default class BlockText extends Vue {
       const styles:{[name:string]: any} = {}
       if (this.text.annotations){
           if (this.text.annotations.bold){
-              styles['font-weight'] = '500'
+              styles['font-weight'] = '700'
           }
           if (this.text.annotations.italic){
               styles['font-style'] = 'italic'

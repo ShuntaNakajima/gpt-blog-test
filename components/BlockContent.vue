@@ -8,7 +8,7 @@
   </component>
   <component :is="tag" v-else-if="embet">
     <client-only>
-      <EmbedContent :embet="embet" />
+      <!-- <EmbedContent :embet="embet" /> -->
     </client-only>
   </component>
   <component :is="tag" v-else-if="bookmark">

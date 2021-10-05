@@ -1,4 +1,4 @@
-import fs from "fs"
+const fs = require('fs').promises;
 import path from "path"
 import sharp, { OverlayOptions } from 'sharp'
 import TextToSVG, { FontOptions, GenerationOptions } from 'text-to-svg'
@@ -29,17 +29,12 @@ const fetchOGP = async function(pageItems:PageListItem[]) {
         try {
           let ogp = await ogpClient.getOGP(bookmark.bookmark.url)
           const imageUrl = ogp.image
-          superagent.get(imageUrl).end((err, res) => {
-            if(res){
-              const base64 = btoa(res.body);
-              ogp.image = `data:image/png;base64,${base64}`
-              fs.writeFile(`./tmp/${block.id}.json`, JSON.stringify(ogp), function(err) {
-                if (err) {
-                  console.log(err);
-                }
-              });
-            }
-          });
+          const res = await superagent.get(imageUrl)
+          if(res){
+            const base64 = btoa(res.body);
+            ogp.image = `data:image/png;base64,${base64}`
+            await fs.writeFile(`./tmp/${block.id}.json`, JSON.stringify(ogp));
+          }
         }catch{
           console.log("🙅‍♀️ Error occur while loading ",bookmark.bookmark.url)
         }

@@ -53,7 +53,7 @@ export interface OGP {
       for (let block of bookmarkblocks) {
         const bookmarkBlock = convertBookMarkObject(block)
         if (bookmarkBlock) {
-          const ogp = await ogpClient.getOGP(bookmarkBlock?.id)
+          const ogp = await ogpClient.getOGP(bookmarkBlock.id)
           if(ogp){
             ogps[block.id] = ogp
           }

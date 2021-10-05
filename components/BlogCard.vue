@@ -1,10 +1,14 @@
 <template>
   <a class="BlogCard" @click="click" :href="`/blog/${page_id}`">
     <div class="BlogCardContent">
-      <div class="BlogCardContentHeader" :style="styles">
+      <div class="BlogCardContentHeader" :style="styles" v-if="!cover">
         <div class="icon">
           <img src="~/assets/images/icon.png" alt="icon" class="image" />
         </div>
+      </div>
+      <div class="BlogCardContentHeader" v-else>
+        <div class="LoadCircle"></div>
+        <img :src="cover.file.url" loading="lazy" alt="cover" class="BlogCardContentHeaderIMG">
       </div>
       <div class="BlogCardContentInner">
         <div class="datelatbel">
@@ -19,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { ExternalFile } from "@notionhq/client/build/src/api-types";
 import {
   Component,
   Prop,
@@ -38,6 +43,8 @@ export default class BlogList extends Vue {
   page_id!: string
   @Prop()
   color!: string;
+  @Prop()
+  cover!: File | ExternalFile | null
 
   @Emit()
   click(){}
@@ -90,13 +97,35 @@ export default class BlogList extends Vue {
     &Header {
       width: 100%;
       height: 45%;
-      background: #f5a7a7;
+      background: #F0F0F0;
       display: flex;
       align-items: center;
+      position: relative;
       .icon {
         margin: auto;
         height: 60px;
         width: 60px;
+      }
+      &IMG {
+        object-fit: cover;
+        z-index: 10;
+      }
+      .LoadCircle{
+        background: linear-gradient(89.79deg, rgba(255, 255, 255, 0) 13.26%, rgba(254, 254, 254, 0.7) 52.65%, rgba(234, 234, 234, 0) 89.8%);
+        height: 100%;
+        width: 250px;
+        top: 0;
+        left: -150px;
+        position: absolute;
+        animation: skeleton-animation 1.4s linear infinite;
+        @keyframes skeleton-animation {
+          0% {
+              transform: translateX(-200%);
+          }
+          100% {
+              transform: translateX(200%);
+          }
+        }
       }
     }
     &Inner {

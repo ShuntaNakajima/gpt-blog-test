@@ -2,8 +2,18 @@
   <div class="Content">
       <Header :selected="'blog'"></Header>
       <div class="BlogContent">
-        <h1>{{pageItem.Title.title[0].plain_text}}</h1>
-        <div class="timelabel">{{createdTime}}</div>
+        <div class="TitleContent" v-if="!page_obj.cover">
+          <h1>{{pageItem.Title.title[0].plain_text}}</h1>
+          <div class="timelabel">{{createdTime}}</div>
+        </div>
+        <div class="TitleContent WithCover" v-else>
+          <img :src="page_obj.cover.file.url" class="Cover_IMG" alt="cover">
+          <div class="Cover_IMG_Wrapper"></div>
+          <div class="TitleWithCover">
+            <h1>{{pageItem.Title.title[0].plain_text}}</h1>
+            <div class="timelabel">{{createdTime}}</div>
+          </div>
+        </div>
         <div class="BlogBlocks">
           <div class="Article">
             <LazyBlockContent v-for="block in page" :key="block.id" :block="block" :ogp="ogps[block.id]" />
@@ -18,11 +28,11 @@
 </template>
 
 <script lang="ts">
-import { Block } from '@notionhq/client/build/src/api-types'
+import { Block, Page } from '@notionhq/client/build/src/api-types'
 import { Component, Vue } from 'nuxt-property-decorator'
 import ogpClient from '~/plugins/getogp'
 import apiClient from '~/plugins/notion-api'
-import { convertBookMarkObject, convertStringFormula, PageListItem } from '~/util/Interface/Page'
+import { convertBookMarkObject, convertPageListItem, convertStringFormula, PageListItem } from '~/util/Interface/Page'
 
 export interface OGP {
   title: string;
@@ -36,7 +46,8 @@ export interface OGP {
 @Component({
     async asyncData({ params }) {
       const page_id = params.pageId
-      const [pageItem,page] = await apiClient.getPage(page_id)
+      const [page_obj,page] = await apiClient.getPage(page_id)
+      const pageItem = convertPageListItem(page_obj)
       const ogps:{[name:string]: OGP} = {}
       const bookmarkblocks = page.filter(x=>x.type=="bookmark")
       for (let block of bookmarkblocks) {
@@ -48,7 +59,7 @@ export interface OGP {
           }
         }
       }
-      return { page_id, pageItem, page, ogps }
+      return { page_id, pageItem, page, ogps, page_obj }
     }
 })
 export default class BlogContent extends Vue {
@@ -57,6 +68,7 @@ export default class BlogContent extends Vue {
     page?: Block[] = []
     nowId: string = ""
     ogps: {[name:string]: OGP} = {}
+    page_obj: Page|null = null
 
     head() {
       let description = ""
@@ -128,8 +140,42 @@ export default class BlogContent extends Vue {
 .BlogContent{
   margin: auto;
   margin-top: 20px;
-  padding: 0 $content-padding;
   max-width: $content-width;
+  display: flex;
+  flex-direction: column;
+  @include mq(md){
+    justify-content: center;
+  }
+  .WithCover{
+    display: flex;
+    max-width: 670px;
+    width: 100%;
+    height: 380px;
+    position: relative;
+    @include mq(md){
+      align-self: center;
+    }
+    .TitleWithCover{
+      position: absolute;
+      left: $content-padding;
+      bottom: $content-padding;
+      color: white;
+      .timelabel{
+        color: white;
+      }
+    }
+    .Cover_IMG{
+      object-fit: cover
+    }
+    .Cover_IMG_Wrapper{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0%;
+      left: 0%;
+      background: rgba(0, 0, 0, 0.214);
+    }
+  }
   .timelabel{
     font-size: 1.1rem;
     color: $gray;
@@ -140,6 +186,7 @@ export default class BlogContent extends Vue {
     justify-content: space-between;
     @include mq(md){
       justify-content: center;
+      padding: 0 $content-padding;
     }
     .Article{
       max-width: 670px;

@@ -19,7 +19,7 @@ class NotionAPIClient{
         return page.results
     }
 
-    async getPage(page_id:string): Promise<[PageListItem,Block[]]> {
+    async getPage(page_id:string): Promise<[Page,Block[]]> {
         const filter:Filter = {
             property: "page_id",
             text: {
@@ -30,12 +30,11 @@ class NotionAPIClient{
             database_id: process.env.NOTION_DB || "",
             filter: filter
         })
-        const pageItem = convertPageListItem(page.results[0])
         const id = page.results[0].id
         const page2 = await this.client.blocks.children.list({
             block_id: id
         })
-        return [pageItem,page2.results]
+        return [page.results[0],page2.results]
     }
 }
 

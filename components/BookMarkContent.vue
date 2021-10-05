@@ -137,7 +137,7 @@ export default class BookMarkContent extends Vue {
       top: 0;
       left: -150px;
       position: absolute;
-      animation: skeleton-animation 2.4s linear infinite;
+      animation: skeleton-animation 1.4s linear infinite;
       @keyframes skeleton-animation {
         0% {
             transform: translateX(-200%);

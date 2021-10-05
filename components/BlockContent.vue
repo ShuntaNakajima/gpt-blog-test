@@ -11,7 +11,7 @@
       <EmbedContent :embet="embet" />
     </client-only>
   </component>
-  <component :is="tag" v-else-if="bookmark && ogp">
+  <component :is="tag" v-else-if="bookmark">
     <client-only>
       <LazyBookMarkContent :ogp="ogp" />
     </client-only>

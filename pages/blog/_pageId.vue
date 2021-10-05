@@ -6,10 +6,10 @@
         <div class="timelabel">{{createdTime}}</div>
         <div class="BlogBlocks">
           <div class="Article">
-            <BlockContent v-for="block in page" :key="block.id" :block="block" :ogp="ogps[block.id]" />
+            <LazyBlockContent v-for="block in page" :key="block.id" :block="block" :ogp="ogps[block.id]" />
           </div>
           <div class="Index">
-            <BlockContentIndex :indexItems="indexItems" :nowId="nowId" />
+            <LazyBlockContentIndex :indexItems="indexItems" :nowId="nowId" />
           </div>
         </div>
       </div>

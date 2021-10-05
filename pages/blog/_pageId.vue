@@ -9,7 +9,7 @@
             <BlockContent v-for="block in page" :key="block.id" :block="block" :ogp="ogps[block.id]" />
           </div>
           <div class="Index">
-            <LazyBlockContentIndex :indexItems="indexItems" :nowId="nowId" />
+            <BlockContentIndex :indexItems="indexItems" :nowId="nowId" />
           </div>
         </div>
       </div>

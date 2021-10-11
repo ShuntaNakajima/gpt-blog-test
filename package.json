@@ -13,6 +13,7 @@
     "@aceforth/nuxt-optimized-images": "^1.4.0",
     "@babel/preset-typescript": "^7.15.0",
     "@notionhq/client": "^0.3.1",
+    "@nuxtjs/google-gtag": "^1.0.4",
     "@types/sharp": "^0.28.6",
     "@types/superagent": "^4.1.13",
     "@types/text-to-svg": "^3.1.1",

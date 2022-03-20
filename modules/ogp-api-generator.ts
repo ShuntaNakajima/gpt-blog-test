@@ -43,26 +43,6 @@ const fetchOGP = async function(pageItems:PageListItem[]) {
   }
 }
 
-const fetchImage = async function(pageItems: PageListItem[]) {
-  for (const page of pageItems) {
-    await sleep(500);
-    const [_,blocks] = await apiClient.getPage(convertStringFormula(page.page_id).string ?? "")
-    for (const block of blocks) {
-      const image = convertImageObject(block)
-      if (image){
-        const res = await superagent.get(image.file.url)
-        if (res){
-          const base64 = btoa(res.body);
-          await fs.writeFile(`./static/images/notionimages/${block.id}.png`, base64, 'base64', function(err: any) {
-            if (err) throw err;
-            console.log('error while img saving',err);
-          });
-        }
-      }
-    }
-  }
-}
-
 module.exports = function() {
 // @ts-ignore
  this.nuxt.hook('generate:distCopied', async generator => {
@@ -71,8 +51,6 @@ module.exports = function() {
   const pageItems = pages.map(page=> convertPageListItem(page))
   console.log('🔎 ogp-generator:start fetch OGP')
   await fetchOGP(pageItems)
-  console.log('🔎 ogp-generator:start fetch Image')
-  await fetchImage(pageItems)
   console.log('🔎 ogp-generator:finish all 🚀')
  })
 }

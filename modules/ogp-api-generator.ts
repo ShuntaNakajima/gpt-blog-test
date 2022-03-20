@@ -53,7 +53,7 @@ const fetchImage = async function(pageItems: PageListItem[]) {
         const res = await superagent.get(image.file.url)
         if (res){
           const base64 = btoa(res.body);
-          await fs.writeFile(`./static/images/notionimages/${block.id}.png`, base64, 'base64', function(err) {
+          await fs.writeFile(`./static/images/notionimages/${block.id}.png`, base64, 'base64', function(err: any) {
             if (err) throw err;
             console.log('error while img saving',err);
           });

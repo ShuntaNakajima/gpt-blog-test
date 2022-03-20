@@ -3,7 +3,7 @@ import path from "path"
 import sharp, { OverlayOptions } from 'sharp'
 import TextToSVG, { FontOptions, GenerationOptions } from 'text-to-svg'
 import apiClient from "../plugins/notion-api"
-import { convertBookMarkObject, convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
+import { convertBookMarkObject, convertImageObject, convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
 import ogpClient, { OGP } from "../plugins/getogp-api";
 import superagent from "superagent"
 
@@ -43,6 +43,23 @@ const fetchOGP = async function(pageItems:PageListItem[]) {
   }
 }
 
+const fetchImage = async function(pageItems: PageListItem[]) {
+  for (const page of pageItems) {
+    await sleep(500);
+    const [_,blocks] = await apiClient.getPage(convertStringFormula(page.page_id).string ?? "")
+    for (const block of blocks) {
+      const image = convertImageObject(block)
+      if (image){
+        const res = await superagent.get(image.file.url)
+        if (res){
+          const base64 = btoa(res.body);
+          await fs.writeFile(`./static/images/notionimages/${block.id}.png`, base64, 'base64')
+        }
+      }
+    }
+  }
+}
+
 module.exports = function() {
 // @ts-ignore
  this.nuxt.hook('generate:distCopied', async generator => {
@@ -51,6 +68,8 @@ module.exports = function() {
   const pageItems = pages.map(page=> convertPageListItem(page))
   console.log('🔎 ogp-generator:start fetch OGP')
   await fetchOGP(pageItems)
+  console.log('🔎 ogp-generator:start fetch Image')
+  await fetchImage(pageItems)
   console.log('🔎 ogp-generator:finish all 🚀')
  })
 }

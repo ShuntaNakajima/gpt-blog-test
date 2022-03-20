@@ -4,7 +4,7 @@
     <br v-if="richTexts.text.length === 0">
   </component>
   <component :is="tag" v-else-if="image">
-    <img :src="image.file.url" :alt="imageCaption" loading="lazy" class="ImageContent">
+    <img :src="`/images/notionimages/${block.id}.png`" :alt="imageCaption" loading="lazy" class="ImageContent">
   </component>
   <component :is="tag" v-else-if="embet">
     <client-only>

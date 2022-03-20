@@ -50,7 +50,8 @@ export default {
     '@nuxtjs/style-resources',
     '@/modules/ogp-api-generator',
     '@/modules/ogp-generator',
-    'nuxt-lazy-load'
+    'nuxt-lazy-load',
+    '@nuxtjs/google-gtag',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -89,5 +90,9 @@ export default {
         component: resolve(__dirname, 'pages/blog/index.vue')
       })
     }
-  }
+  },
+
+  'google-gtag': {
+    id: 'G-2QZZ37WE51',
+  },
 }

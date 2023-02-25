@@ -86,6 +86,16 @@ export function convertBulletedListItemObject(block:Block){
     }
 }
 
+export function convertCodeBlock(block:Block){
+    switch (block.type){
+        //@ts-ignore
+        case "code":
+            return block['code']
+        default:
+            return null
+    }
+}
+
 export function getRichTextText(richText:RichText){
     if (richText.type === "text"){
         return richText

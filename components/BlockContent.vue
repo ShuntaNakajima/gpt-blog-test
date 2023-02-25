@@ -17,6 +17,10 @@
   <component class="ListContent" :is="tag" v-else-if="bulletedList">
     <div class="ListDot"></div><div><span v-for="(text, index) in bulletedList.text" :key="index"><BlockText :text="richTextText(text)"></BlockText></span></div>
   </component>
+  <component :is="tag" v-else-if="codeBlock">
+    <div class="codBlock" v-html="codeBlock.text[0].text.content.replace(/\n/g,'<br/>')">
+    </div>
+  </component>
   <!-- Add more feature here -->
   <!-- <component :is="tag" v-else>
     {{block}}
@@ -31,7 +35,7 @@ import {
   Vue,
 } from "nuxt-property-decorator";
 import { OGP } from "~/plugins/getogp";
-import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText, convertBulletedListItemObject } from "~/util/Interface/Page";
+import { convertEmbetObject, convertBookMarkObject, convertImageObject, convertRichTextObject, getIdForH2, getRichTextText, convertBulletedListItemObject, convertCodeBlock } from "~/util/Interface/Page";
 
 @Component
 export default class BlockContent extends Vue {
@@ -88,6 +92,10 @@ export default class BlockContent extends Vue {
     return convertBulletedListItemObject(this.block)
   }
 
+  get codeBlock() {
+    return convertCodeBlock(this.block)
+  }
+
   get imageCaption(){
     if (this.image?.caption){
       return this.image.caption[0].plain_text
@@ -134,5 +142,14 @@ p{
   &::before{
     content: "・"
   }
+}
+.codBlock{
+  background: #333;
+  border: 1px solid rgb(215, 215, 215);
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: white;
 }
 </style>

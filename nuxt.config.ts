@@ -48,8 +48,8 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
-    // '@/modules/ogp-api-generator',
-    // '@/modules/ogp-generator',
+    '@/modules/ogp-api-generator',
+    '@/modules/ogp-generator',
     'nuxt-lazy-load',
     // '@nuxtjs/google-gtag',
   ],

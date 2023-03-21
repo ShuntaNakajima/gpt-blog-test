@@ -97,7 +97,7 @@ export default class BlockContent extends Vue {
   }
 
   get imageCaption(){
-    if (this.image?.caption){
+    if (this.image?.caption && this.image?.caption[0]){
       return this.image.caption[0].plain_text
     } else {
       return ""

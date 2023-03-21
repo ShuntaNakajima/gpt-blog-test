@@ -62,8 +62,8 @@ export default class BlogList extends Vue {
   &ContentGrid{
     margin-top: 30px;
     display: grid;
-    gap: 40px;
-    grid-template-columns: repeat(auto-fit, minmax(249px, 1fr));
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
   }
 }
 </style>

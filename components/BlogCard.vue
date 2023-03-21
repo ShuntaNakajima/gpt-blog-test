@@ -72,8 +72,8 @@ export default class BlogList extends Vue {
 <style scoped lang="scss">
 .BlogCard {
   position: relative;
-  border-radius: 20px;
-  box-shadow: 0px 0px 22px -5px rgba(0, 0, 0, 0.1);
+  // border-radius: 20px;
+  // box-shadow: 0px 0px 22px -5px rgba(0, 0, 0, 0);
   background: $white;
   overflow: hidden;
   cursor: pointer;

@@ -2,7 +2,7 @@
   <div class="Content">
       <Header :selected="'blog'"></Header>
       <div class="PageList">
-        <h2>Blog</h2>
+        <h2>記事一覧</h2>
         <div class="PageListContentGrid">
           <BlogCard :cover="coverItems[index]" :date="toString(item.created).string" :title="getTitle(item.Title)" :page_id="toString(item.page_id).string" :color="toString(item.color).string" v-for="(item,index) in filterdListItems" :key="toString(item.page_id).string" />
           <div class="dummyCard"></div>

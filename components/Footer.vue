@@ -1,6 +1,6 @@
 <template>
   <div class="Footer">
-      <p>© 2021 ︎Shunta Nakajima<br>All Rights Reserved.</p>
+      <!-- <p>© 2021 ︎Shunta Nakajima<br>All Rights Reserved.</p> -->
   </div>
 </template>
 

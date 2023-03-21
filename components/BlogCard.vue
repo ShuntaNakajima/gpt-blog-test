@@ -3,7 +3,7 @@
     <div class="BlogCardContent">
       <div class="BlogCardContentHeader" :style="styles" v-if="!cover">
         <div class="icon">
-          <img src="~/assets/images/icon.png" alt="icon" class="image" />
+          <img src="~/assets/images/WCJ.svg" alt="icon" class="image" />
         </div>
       </div>
       <div class="BlogCardContentHeader" v-else>
@@ -104,8 +104,7 @@ export default class BlogList extends Vue {
       position: relative;
       .icon {
         margin: auto;
-        height: 60px;
-        width: 60px;
+        height: 40px;
       }
       &IMG {
         object-fit: cover;

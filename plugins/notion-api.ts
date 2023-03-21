@@ -13,6 +13,10 @@ class NotionAPIClient{
     }
 
     async getPages(): Promise<Page[]> {
+        const aga = await this.client.search({})
+        console.log(aga)
+        const list = await this.client.databases.list()
+        console.log('dbs', list)
         const page = await this.client.databases.query({
             database_id: process.env.NOTION_DB || ""
         })

@@ -16,7 +16,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'shunta.dev' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'WCJ' },
       { name: 'twitter:card', content: 'summary_large_image' }
     ],
     link: [
@@ -48,10 +48,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
-    '@/modules/ogp-api-generator',
-    '@/modules/ogp-generator',
+    // '@/modules/ogp-api-generator',
+    // '@/modules/ogp-generator',
     'nuxt-lazy-load',
-    '@nuxtjs/google-gtag',
+    // '@nuxtjs/google-gtag',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -92,7 +92,7 @@ export default {
     }
   },
 
-  'google-gtag': {
-    id: 'G-2QZZ37WE51',
-  },
+  // 'google-gtag': {
+  //   id: 'G-2QZZ37WE51',
+  // },
 }

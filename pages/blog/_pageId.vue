@@ -79,8 +79,8 @@ export default class BlogContent extends Vue {
         title: this.pageItem?.Title.title[0].plain_text,
         meta: [
           { hid: 'description', property: 'description', content: description },
-          { hid: 'og:url', property: 'og:url', content: `https://shunta.dev/blog/${this.page_id}` },
-          { hid: 'og:image', property: 'og:image', content: `https://shunta.dev/ogp/${this.page_id}.png` },
+          // { hid: 'og:url', property: 'og:url', content: `https://shunta.dev/blog/${this.page_id}` },
+          // { hid: 'og:image', property: 'og:image', content: `https://shunta.dev/ogp/${this.page_id}.png` },
           { hid: 'og:title', property: 'og:title', content: this.pageItem?.Title.title[0].plain_text },
           { hid: 'og:description', property: 'og:description', content: description },
           { hid: 'og:type', property: 'og:type', content: "article" },

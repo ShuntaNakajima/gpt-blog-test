@@ -3,17 +3,16 @@
       <div class="HeaderContent">
           <a href="/blog" class="HeaderContentLeft">
               <div class="icon">
-                  <img src="~/assets/images/icon.png" alt="icon" class="image">
+                  <img src="~/assets/images/icon.svg" alt="icon" class="image">
               </div>
-              <p class="headertitle">shunta.dev</p>
           </a>
           <div class="HeaderContentRight">
               <a href="/blog" class="menuitem" :class="{'selected':selected=='blog'}">
-                  Blog
+                  記事一覧
               </a>
-              <a href="/about" class="menuitem" :class="{'selected':selected=='about'}">
+              <!-- <a href="/about" class="menuitem" :class="{'selected':selected=='about'}">
                   About
-              </a>
+              </a> -->
           </div>
       </div>
   </div>
@@ -50,8 +49,7 @@ export default class BlogList extends Vue {
             display: flex;
             align-items: center;
             .icon{
-                width: 40px;
-                height: 40px;
+                height: 65%;
             }
             .headertitle{
                 margin-left: 8px;

@@ -113,7 +113,7 @@ module.exports = function() {
   const pages = await apiClient.getPages()
   const pageItems = pages.map(page=> convertPageListItem(page))
   console.log('🔎 ogp-generator:start generate OGP')
-  await generateOGP(pageItems)
+  // await generateOGP(pageItems)
   console.log('🔎 ogp-generator:start fetch Image')
   await fetchImage(pageItems)
   console.log('🔎 ogp-generator:finish all 🚀')

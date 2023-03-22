@@ -7,7 +7,7 @@
           <div class="timelabel">{{createdTime}}</div>
         </div>
         <div class="TitleContentWithCover" v-else>
-          <img :src="page_obj.cover.file.url" loading="lazy" class="Cover_IMG" alt="cover">
+          <img :src="`/images/notionimages/cover/${page_id}.png`" loading="lazy" class="Cover_IMG" alt="cover">
           <div class="Cover_IMG_Wrapper"></div>
           <div class="TitleWithCover">
             <h1>{{pageItem.Title.title[0].plain_text}}</h1>

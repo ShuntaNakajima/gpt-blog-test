@@ -8,7 +8,7 @@
       </div>
       <div class="BlogCardContentHeader" v-else>
         <div class="LoadCircle"></div>
-        <img :src="cover.file.url" loading="lazy" alt="cover" class="BlogCardContentHeaderIMG">
+        <img :src="`/images/notionimages/cover/${page_id}.png`" loading="lazy" alt="cover" class="BlogCardContentHeaderIMG">
       </div>
       <div class="BlogCardContentInner">
         <div class="datelatbel">

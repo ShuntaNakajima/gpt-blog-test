@@ -6,6 +6,7 @@ import apiClient from "../plugins/notion-api"
 import { convertBookMarkObject, convertImageObject, convertPageListItem, convertStringFormula, PageListItem } from "../util/Interface/Page"
 import ogpClient, { OGP } from "../plugins/getogp-api";
 import superagent from "superagent"
+import { Page } from "@notionhq/client/build/src/api-types"
 
 const btoa = (str:File) => {
   let buffer;
@@ -86,6 +87,22 @@ const generateOGP = async function(pageItems:PageListItem[]) {
   }
 }
 
+const fetchCoverImage = async function(pages: Page[]) {
+  for (const page of pages) {
+    await sleep(500);
+    // @ts-ignore
+    if (page.cover && page.cover.file.url) {
+      // @ts-ignore
+      const res = await superagent.get(page.cover.file.url)
+      if (res){
+        const base64 = btoa(res.body);
+        await fs.promises.mkdir(`./dist/images/notionimages/cover/`, { recursive: true });
+        await fs.promises.writeFile(`./dist/images/notionimages/cover/${page.id.replaceAll('-', '')}.png`, base64, 'base64')
+      }
+    }
+  }
+}
+
 const fetchImage = async function(pageItems: PageListItem[]) {
   for (const page of pageItems) {
     await sleep(500);
@@ -116,6 +133,7 @@ module.exports = function() {
   // await generateOGP(pageItems)
   console.log('🔎 ogp-generator:start fetch Image')
   await fetchImage(pageItems)
+  await fetchCoverImage(pages)
   console.log('🔎 ogp-generator:finish all 🚀')
  })
 }
